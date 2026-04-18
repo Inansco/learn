@@ -20,12 +20,12 @@ func main() {
 		return
 	}
 
-	data := (string(file))
+	data := FixHex(string(file))
 
 	err = os.WriteFile(output, []byte(data), 0644)
 	if err != nil {
 		fmt.Println("Error")
-		return 
+		return
 	}
 	fmt.Println("It is done!!!!!!!")
 }
