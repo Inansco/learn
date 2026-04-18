@@ -5,14 +5,15 @@ import (
 	"strings"
 )
 
-// func Processor(data string) string {
-// 	words := strings.Split(data, ",")
-// 	for i := range words {
-// 		words[i] = FixHex(data)
-// 		return data
-// 	}
-// 	return strings.Join(data, " ")
-// }
+func Processor(data string) string {
+	words := strings.Split(data, "\n")
+	for i := range words {
+		words[i] = FixHex(words[i])
+		words[i] = FixBin(words[i])
+
+	}
+	return strings.Join(words, "\n")
+}
 
 func FixHex(data string) string {
 	words := strings.Fields(data)
@@ -29,4 +30,21 @@ func FixHex(data string) string {
 	}
 	return strings.Join(words, " ")
 }
+
+func FixBin(data string) string {
+	words := strings.Fields(data)
+	for i := 0; i < len(words); i++ {
+		if i+1 < len(words) && words[i+1] == "(bin)" {
+			bin, err := strconv.ParseInt(words[i], 2, 64)
+			if err != nil {
+				continue
+			}
+			words[i] = strconv.FormatInt(bin, 10)
+			words = append(words[:i+1], words[i+2:]...)
+			i--
+		}
+	}
+	return strings.Join(words, " ")
+}
+
 

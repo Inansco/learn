@@ -20,7 +20,7 @@ func main() {
 		return
 	}
 
-	data := FixHex(string(file))
+	data := Processor(string(file))
 
 	err = os.WriteFile(output, []byte(data), 0644)
 	if err != nil {
