@@ -10,7 +10,9 @@ func Processor(data string) string {
 	for i := range words {
 		words[i] = FixHex(words[i])
 		words[i] = FixBin(words[i])
-
+		words[i] = FixUp(words[i])
+		words[i] = FixBin(words[i])
+		words[i] = FixBin(words[i])
 	}
 	return strings.Join(words, "\n")
 }
@@ -47,4 +49,26 @@ func FixBin(data string) string {
 	return strings.Join(words, " ")
 }
 
-
+func FixUp(data string) string {
+	words := strings.Fields(data)
+	for i := 0; i < len(words); i++ {
+		if words[i] == "(up)" {
+			words[i-1] = strings.ToUpper(words[i-1])
+			words = append(words[:i], words[i+1:]...)
+			i--
+		}
+		if words[i] == "(up," {
+			casing := strings.Trim(words[i+1], ")")
+			count, err := strconv.Atoi(casing)
+			if err != nil {
+				continue
+			}
+			for j := 0; j <= count; j++ {
+				words[i-j] = strings.ToUpper(words[i-j])
+			}
+			words = append(words[:i], words[i+2:]...)
+			i--
+		}
+	}
+	return strings.Join(words, " ")
+}
