@@ -1,6 +1,7 @@
 package main
 
 import (
+	"regexp"
 	"strconv"
 	"strings"
 )
@@ -12,6 +13,8 @@ func Processor(data string) string {
 		words[i] = FixBin(words[i])
 		words[i] = FixUp(words[i])
 		words[i] = FixLow(words[i])
+		words[i] = FixCap(words[i])
+		words[i] = FixQuot(words[i])
 		words[i] = FixCap(words[i])
 	}
 	return strings.Join(words, "\n")
@@ -107,10 +110,7 @@ func FixCap(data string) string {
 		}
 		if words[i] == "(cap," {
 			casing := strings.Trim(words[i+1], ")")
-			count, err := strconv.Atoi(casing)
-			if err != nil {
-				continue
-			}
+			count, _ := strconv.Atoi(casing)
 			for j := 0; j <= count; j++ {
 				words[i-j] = strings.ToUpper(words[i-j][:1]) + strings.ToLower(words[i-j][1:])
 			}
@@ -119,4 +119,10 @@ func FixCap(data string) string {
 		}
 	}
 	return strings.Join(words, " ")
+}
+
+func FixQuot(data string) string {
+	data = regexp.MustCompile(`'\s+(.*?)\s+'`).ReplaceAllString(data, "'$1'")
+	data = regexp.MustCompile(`"\s+(.*?)\s+"`).ReplaceAllString(data, `"$1"`)
+	return data
 }
