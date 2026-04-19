@@ -72,3 +72,27 @@ func FixUp(data string) string {
 	}
 	return strings.Join(words, " ")
 }
+
+func FixLow(data string) string {
+	words := strings.Fields(data)
+	for i := 0; i < len(words); i++ {
+		if words[i] == "(low)" {
+			words[i-1] = strings.ToLower(words[i-1])
+			words = append(words[:i], words[i+1:]...)
+			i--
+		}
+		if words[i] == "(low," {
+			casing := strings.Trim(words[i+1], ")")
+			count, err := strconv.Atoi(casing)
+			if err != nil {
+				continue
+			}
+			for j := 0; j <= count; j++ {
+				words[i-j] = strings.ToLower(words[i-j])
+			}
+			words = append(words[:i], words[i+2:]...)
+			i--
+		}
+	}
+	return strings.Join(words, " ")
+}
