@@ -2,4 +2,4 @@
 
 There are 10 (bin) people in the (up) cluster
 
-There are 10 (bin) people in the (cap) cluster
+There are 10 (bin) people in the (cap, 2) cluster

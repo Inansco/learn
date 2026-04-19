@@ -105,6 +105,18 @@ func FixCap(data string) string {
 			words = append(words[:i], words[i+1:]...)
 			i--
 		}
+		if words[i] == "(cap," {
+			casing := strings.Trim(words[i+1], ")")
+			count, err := strconv.Atoi(casing)
+			if err != nil {
+				continue
+			}
+			for j := 0; j <= count; j++ {
+				words[i-j] = strings.ToUpper(words[i-j][:1]) + strings.ToLower(words[i-j][1:])
+			}
+			words = append(words[:i], words[i+2:]...)
+			i--
+		}
 	}
 	return strings.Join(words, " ")
 }
