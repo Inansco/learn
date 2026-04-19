@@ -11,7 +11,7 @@ func Processor(data string) string {
 		words[i] = FixHex(words[i])
 		words[i] = FixBin(words[i])
 		words[i] = FixUp(words[i])
-		words[i] = FixBin(words[i])
+		words[i] = FixLow(words[i])
 		words[i] = FixBin(words[i])
 	}
 	return strings.Join(words, "\n")
