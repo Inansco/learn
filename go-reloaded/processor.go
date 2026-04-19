@@ -15,7 +15,7 @@ func Processor(data string) string {
 		words[i] = FixLow(words[i])
 		words[i] = FixCap(words[i])
 		words[i] = FixQuot(words[i])
-		words[i] = FixCap(words[i])
+		words[i] = FixPunct(words[i])
 	}
 	return strings.Join(words, "\n")
 }
@@ -122,7 +122,22 @@ func FixCap(data string) string {
 }
 
 func FixQuot(data string) string {
-	data = regexp.MustCompile(`'\s+(.*?)\s+'`).ReplaceAllString(data, "'$1'")
-	data = regexp.MustCompile(`"\s+(.*?)\s+"`).ReplaceAllString(data, `"$1"`)
+	words1 := regexp.MustCompile(`'\s+(.*?)\s+'`)
+	data = words1.ReplaceAllString(data, "'$1'")
+
+	words2 := regexp.MustCompile(`"\s+(.*?)\s+"`)
+	data = words2.ReplaceAllString(data, `"$1"`)
+
 	return data
+}
+
+func FixPunct(data string) string {
+	words := regexp.MustCompile(`\s+([.,!?:;])`)
+	data = words.ReplaceAllString(data, "$1")
+
+	words1 := regexp.MustCompile(`([.,!?:;])([a-zA-Z0-9'"])`)
+	data = words1.ReplaceAllString(data, "$1 $2")
+
+	return data
+
 }
