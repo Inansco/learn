@@ -12,7 +12,7 @@ func Processor(data string) string {
 		words[i] = FixBin(words[i])
 		words[i] = FixUp(words[i])
 		words[i] = FixLow(words[i])
-		words[i] = FixBin(words[i])
+		words[i] = FixCap(words[i])
 	}
 	return strings.Join(words, "\n")
 }
@@ -91,6 +91,18 @@ func FixLow(data string) string {
 				words[i-j] = strings.ToLower(words[i-j])
 			}
 			words = append(words[:i], words[i+2:]...)
+			i--
+		}
+	}
+	return strings.Join(words, " ")
+}
+
+func FixCap(data string) string {
+	words := strings.Fields(data)
+	for i := 0; i < len(words); i++ {
+		if words[i] == "(cap)" {
+			words[i-1] = strings.ToUpper(words[i-1][:1]) + strings.ToLower(words[i-1][1:])
+			words = append(words[:i], words[i+1:]...)
 			i--
 		}
 	}
