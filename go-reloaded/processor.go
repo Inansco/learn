@@ -16,6 +16,7 @@ func Processor(data string) string {
 		words[i] = FixCap(words[i])
 		words[i] = FixQuot(words[i])
 		words[i] = FixPunct(words[i])
+		words[i] = FixAtoan(words[i])
 	}
 	return strings.Join(words, "\n")
 }
@@ -140,4 +141,32 @@ func FixPunct(data string) string {
 
 	return data
 
+}
+
+func FixAtoan(data string) string {
+	words := strings.Fields(data)
+	for i, j := range words {
+		if i+1 < len(words) && j == "a" || j == "A" {
+			index := words[i+1][:1]
+			if strings.ContainsAny(index, "aeiouhAEIOUH") {
+				if j == "a" {
+					words[i] = "an"
+				} else {
+					words[i] = "An"
+				}
+			}
+		}
+		if i+1 < len(words) && j == "an" || j == "An" {
+			index := words[i+1][:1]
+			if strings.ContainsAny(index, "bcdfgjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ") {
+				if j == "an" {
+					words[i] = "a"
+				} else {
+					words[i] = "A"
+				}
+			}
+		}
+
+	}
+	return strings.Join(words, " ")
 }
