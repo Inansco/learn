@@ -1,6 +1,6 @@
 1E (hex) files had been taken (up, 2) to the people
 
-' There are ' " 10 (bin) " ,,   ,,' people in the (up) cluster ... .... ..  mn       '
+"' There are '" " 10 (bin) " ,,   ,,         ' people in the (up) cluster ... .... ..  mn       '
 
 There are 10 (bin) people in the (cap, 2) cluster
 
@@ -9,3 +9,5 @@ There are 10 (bin) people in the (cap, 2) cluster
 " far "
 
 an man An car An book a house
+
+a university

@@ -1,6 +1,6 @@
 30 files had BEEN TAKEN to the people
 
-'There are' "2",,,, 'people in THE cluster......... mn'
+"'There are'"" 2",,,, 'people in THE cluster......... mn'
 
 There are 2 people In The cluster
 
@@ -8,4 +8,6 @@ There are 2 people In The cluster
 
 "far"
 
-a man A car A book a house
+a man A car A book an house
+
+an university
