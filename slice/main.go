@@ -6,6 +6,7 @@ import (
 )
 
 func main() {
+	slice()
 	nums := []int{10, 20, 30}
 
 	for i, v := range nums {
@@ -25,4 +26,5 @@ func main() {
 
 	fmt.Println(lines)
 	// ["line1", "line2", "line3"]
+
 }
